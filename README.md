@@ -1,2 +1,72 @@
 # TAD-Biblioteca
-Simulação de um sistema bibliotecário de empréstimos.
+### TIPOS ABSTRATOS DE DADOS: CONTEXTO E APLICAÇÃO
+
+#### 1. Contexto
+  Uma biblioteca precisa realizar o registro do empréstimo dos livros que atualmente é realizado de forma manual e por meio de fichas. Para tanto, precisa de um sistema que armazene os dados dos livros existentes no acervo, os dados dos usuários da biblioteca (estudantes universitários, professores e técnicos administrativos) e os dados referentes aos empréstimos de cada livro.
+  
+  Para o registro dos livros, os seguintes dados são necessários: ISBN (código do livro), título do livro, editora, local de publicação, data de publicação, primeiro e segundo autor, número da edição e quantidade de livros existentes, e quantidade de livros emprestados. Um livro somente pode ser emprestado se o número de livros disponíveis para empréstimo é maior do que 10% do número total de livros existentes na biblioteca, caso contrário, o livro não poderá ser emprestado, pois deverá permanecer na biblioteca para que os usúarios interessados em utilizá-lo possam consultá-lo dentro das instalações da biblioteca.
+  
+  As informações referentes aos usuários que precisam ser armazenados no sistema para segurança do acervo são: nome e sobrenome, CPF, carteira de identidade, endereço completo (i.e. logradouro, número, complemento, bairro, cidade e CEP), data de nascimento, tipo de usuário (i.e. aluno, professor ou funcionário). Caso o usuário seja um aluno, o nome do curso deverá ser registrado. Se o usuário for um professor ou um funcionário da universidade, o nome do departamento ao qual está vinculado deverá ser registrado.
+  
+  Para realização de um empréstimo, o usuário deverá apresentar sua carteirinha para o atendente ou bibliotecário. Em seguida, deverá apresentar o(s) livro(s) que deseja levar. Desse modo, o empréstimo deverá registrar o CPF do usuário e o ISBN de cada livro do empréstimo. Pelas regras da biblioteca, o número máximo de livros que poderá ser levado por um usuário são 3 (três) livros. Porém, caso o usuário seja um professor, poderá levar até 5 (cinco) livros. Assim, o sistema registrará a data do empréstimo,
+o prazo para empréstimo (i.e. duas semanas) e a data de entrega dos livros. A data de entrega somente é registrada quando o usuário realizar a devolução dos livros. Além disso, o usuário poderá fazer o empréstimo se não houver multas referentes à atrasos de empréstimo. O valor da multa é de R$2,00 (dois reais) por dia de atraso para cada livro.
+
+  Diante desse cenário, para o desenvolvimento do sistema, serão necessários a construção de três módulos: (i) módulo do livro, (ii) módulo do usuário e (iii) módulo de empréstimo. Então, realize a modelagem de dados por meio da abstração do problema real para um sistema de cadastro e controle de empréstimos. Leia o contexto do problema, faça a interpretação dos processos envolvidos no empréstimo de livros da biblioteca para dar início à construção das estruturas de dados para armazenar as todas informações necessárias do problema e das operações referentes a cada processo de empréstimo. Esses são os elementos que constituiem um Tipo Abstrato de Dados (T.A.D.).
+
+#### 2. Tipo Abstrato de Dados (T.A.D.)
+  Um TAD envolve dois elementos essenciais: (a) os dados e (b) as operações sobre esses dados. Os dados são obtidos a partir da abstração do problema real, representam as informações necessárias envolvidas no processo do problema. O recurso da linguagem C utilizado para a construção dos tipos de dados necessários são os registros ou structs, também são chamados de tipos de dados heterogêneos.
+  As operações nada mais são do que “aquilo que os sitema pode fazer” com os dados e, geralmente, o nome de uma operação é representado por um verbo no infinitivo pois indica uma ação realizada sobre os dados (e.g. cadastrar, alterar, excluir ou pesquisar). Em uma linguagem de programação, as operações são representadas por meio de funções ou procedimentos. Na linguagem C, funções e procedimentos são representados por meio de um bloco chamado de função.
+  Para construção das operações, sempre deve-se pensar primeiro em responder as seguintes questões:
+  1. O que você pode fazer com um elemento (livro, usuário ou empréstimo)? A partir daqui, as operações básicas podem ser desenvolvidas;
+  2. O que cada operação precisa, em termos de dados, para ser realizada? Ou seja, quais parâmetros são necessários? Deve-se utilizar passagem de parâmetro por valor ou por referência?
+
+**Observação:** não será permitido o uso de variáveis globais para o desenvolvimento do programa, pois não é uma boa prática de programação.
+
+#### 2.1 Operações Básicas
+- **Inserir (cadastrar):** insere um elemento na estrutura de dados;
+- **Pesquisar:** realiza a pesquisa por meio de um ID de um elemento passado como parâmetro no vetor de elementos da estrutura de dados e retorna o índice de onde esse elemento se encontra;
+- **Alterar:** recebe como parâmetro um elemento que será pesquisado para realizar a alteração dos dados e recebe também o TAD que contém o vetor de elementos para que seja atualizado. Assume-se que o elemento passado como parâmetro já vem com o ID digitado pelo usuário antes da chamada da função Alterar. Além disso, dentro da função Alterar deve-se fazer o uso da função Pesquisar e da função auxiliar Ler, vide seção 2.2, essa realiza a leitura dos novos dados para atualização de um determinado elemento;
+- **Excluir:** recebe como parâmetro um elemento a ser pesquisado para realizar a exclusão dos dados e recebe também o TAD que contém o vetor de elementos. Assume-se que o elemento passado como parâmetro já vem com o ID digitado pelo usuário antes da chamada da função Excluir. Para excluir um elemento, deverá ser realizado o deslocamento dos elementos dentro do vetor do TAD (livro, usuário ou empréstimo) para rearranjá-lo, por exemplo, se o elemento a ser excluído está no índice i e existem n elementos, desloca-se o elemento da posição i + 1 para a posição i até o n-ésimo elemento cadastrado no vetor, depois, o campo indice do TAD deve ser atualizado, ou seja, deverá ser decrementado pois um elemento foi excluído. Dentro da função Excluir deve-se fazer o uso da função Pesquisar para identificar o índice do elemento que deverá ser excluído.
+
+**Observação:** lembre-se de se perguntar do que cada função precisa para realizar a operação, ou seja, quais dados são necessários para realizar a operação, e quais deles devem ou não ser por passagem de parâmetro por valor ou referência.
+
+#### 2.2 Operações Auxiliares
+- **Ler:** recebe como passagem de parâmetro por referência um elemento (livro, usuário ou empréstimo) e realiza a leitura de todos os dados desse elemento. **Observação:** para leitura de strings a função fgets será obrigatória, o uso da função fflush(stdin) deverá ser feito antes de qualquer função de leitura, seja fgets ou scanf, isso evita que o programa salte leituras durante a execução.
+- **Imprimir:** recebe como passagem de parâmetro por valor um elemento e realiza a impressão de todos os dados da estrutura desse elemento.
+
+#### 3. Exercícios de Implementação
+1. Releia os conceitos e definições das operações básicas Pesquisar, Alterar e Excluir da seção 2.1 e implemente as funções a seguir para cada TAD dos módulos de acordo com seus respectivos cabeçalhos:
+      ````
+      int PesquisarLivro(TModulo1 modulo, TLivro livro)
+      void AlterarLivro(TModulo1 *modulo, TLivro livro)    
+      void ExcluirLivro(TModulo1 *modulo, TLivro livro)
+      ````
+      **Observação:** Lembre-se que o nome de cada função deverá estar de acordo com cada tipo de módulo. No cabeçalho das funções definidas anteriormente para cada letra da questão, o nome das funções estão de acordo com o Módulo 1 que é responsável pelo objeto Livro.
+
+2. Adicione a criação do menu principal e dos submenus no Projeto TAD Biblioteca conforme apresentado em laboratório e complete o programa com as chamadas para as funções básicas e auxiliares conforme cada opção de menu para os módulos de Livro e Usuário.
+
+3. Crie a função InserirEmprestimo de acordo com as restrições para a realização de um empréstimo para a biblioteca apresentadas no contexto do problema na seção 1, lembre-se existem restrições com relação ao número máximo de livros emprestados dependendo do tipo usuário, quantidade de livros disponíveis e com relação à multas não pagas. Por enquanto, para realização de um empréstimo, não leve em consideração a existência de multas e o número máximo de livros para cada tipo de usuário, posteriormente, isso deverá ser tratato em outra questão (questão 8). Para o cadastro de um empréstimo leve em consideração os seguintes requisitos:
+      - A função deverá receber como parâmetro um empréstimo (TEmprestimo), para isso, deve-se assumir que CPF, ISBN e data_de_emprestimo já venham preenchidos para esse parâmetro antes da chamada da função InserirEmprestimo.
+      - O Módulo de Empréstimo também deverá ser passado como parâmetro.
+      - Para realização de um empréstimo, você deverá realizar uma chamada à função Pesquisar referente ao objeto livro e usuário para identificar se eles realmente existem dentro de seus respectivos módulos. Uma vez com os retornos dos índices de livro e usuário, a função InserirEmprestimo poderá realizar um empréstimo lendo a data de realização do empréstimo como entrada e verificar a restrição da quantidade de livros disponíveis. Além disso, a quantidade de livros emprestados também deve ser atualizada no objeto livro cadastrado no Módulo 1. Para o cálculo da data de entrega, crie uma função que realiza o cálculo da data de entrega a partir da data do empréstimo, essa função deverá apresentar o seguinte cabeçalho:
+      ```
+        TData CalcularDataEntrega(TData data_emprestimo)
+      ```
+      - A data de devolução, a multa e a confirmação de pagamento da multa não deverão ser registrados no ato de cadastro do empréstimo.
+      - Uma vez que a existência do livro para a realização do empréstimo foi confirmada, o que falta agora é registrá-lo. Porém, uma pessoa pode levar até no máximo 3 ou 5 livros, dependendo do tipo de usuário. No entanto, a função recebe apenas um um ISBN de livro dentro do parâmetro empréstimo e, de acordo com a estrutura TEmprestimo, o campo que armazena mais de um livro é um vetor de livros, o que resulta em um problema. Diante disso, seria melhor (i) refazer a estrutura TEmprestimo ou (ii) modificar a função InserirEmprestimo para que possa receber mais de um livro como parâmetro para realizar um empréstimo? Para resolver esse problema, deve-se pensar como funciona um empréstimo na prática, pois, quando se realiza um empréstimo de um livro na biblioteca, o usuário também pode decidir entregar todos os livros ou apenas um de cada vez. Nesse sentido, o melhor seria inserir um empréstimo por livro, assim, a estrutura TEmprestimo deve ser modificada de modo que não exista mais um vetor de ISBNs mas sim apenas um campo para registrar um livro por empréstimo.
+
+4. Construa as funções de Pesquisar, Alterar e Excluir para um elemento empréstimo semelhantes as que foram construídas para livro e usuário, porém, como IDs do empréstimo deverão ser utilizados o ID do usuário, o ID do livro e a data do emprestimo (TData) para que um empréstimo seja pesquisado. Sendo assim, além do módulo, também deverá ser passado como parâmetro um elemento empréstimo (TEmprestimo) assumindo que CPF, ISBN e data_de_emprestimo já foram previamente digitados antes da chamada dessas funções.
+5. Desenvolva uma função auxiliar ImprimirTodos que utiliza a função auxiliar Imprimir para realizar a impressão de todos os elementos cadastrados em seu respectivo módulo (livro, usuário e empréstimo). Além disso, adicione uma opção em cada submenu para que o usuário possa escolher visualizar um relatório geral de elementos cadastrados por meio do uso da função ImprimirTodos. Essa função deverá receber como parâmetro apenas o módulo.
+
+6. Crie uma função auxiliar para realizar a baixa dos empréstimos realizados, essa função deverá receber como parâmetros o módulo do empréstimo e um objeto empréstimo para que a baixa seja realizada. Deve-se assumir que, para o objeto empréstimo, os campos CPF, ISBN e data_de_emprestimo já foram previamente preenchidos antes da chamada da função que realiza a baixa. Lembre-se que deverá ser criada uma opção de menu para a realização da baixa no software desenvolvido. Para realização da baixa de um empréstimo os seguintes requisitos devem ser observados:
+      - A data de devolução deverá ser lida como entrada, ou seja, deverá ser digitada pelo usuário do sofware para realização da baixa.
+      - O cálculo da multa deverá ser realizado a partir da data de devolução e a data de entrega já registrada no empréstimo. Para tanto, deve-se primeiro calcular a quantidade de dias para multa e a multa somente existe se a data da devolução menos a data de entrega for maior ou igual a 1 dia, se isso for verdade, a multa deverá ser calculada conforme apresentado no Contexto do Problema na seção 1.
+      - Se existir multa, a informação de qua a multa foi paga ou não deverá ser registrada no momento da baixa. Caso não seja paga, o usuário do software deverá ter a opção de registrar o pagamento da multa posteriormente conforme questão 7.
+      
+7. Desenvolva uma função auxiliar que registra o pagamento de uma multa. Para isso, a função deverá utilizar obrigatoriamentes o seguinte cabeçalho: 
+      ```
+        void EfetuarPagamento(TModulo3 *modulo, TEmprestimo borrow)
+      ```
+      Considere que o parâmetro borrow já apresenta os campos CPF, ISBN e data_de_emprestimo previamente preenchidos antes da chamada da função EfetuarPagamento. Não se esqueça de que uma opção para efetuar o pagamento referente a uma multa deverá ser adicionada no Submenu do Módulo 3.
+      
+8. Considere as restrições referentes a quantidade máxima de livros emprestados e a existência ou não de multas para um determinado empréstimo. Agora, pense no que deve ser feito para que essas restrições sejam levadas em consideração dentro da função InserirEmprestimo da questão 3. Faça as alterações necessárias, inclusive alterações nas estruturas, para que a função InserirEmprestimo siga rigorasamente essas duas últimas restrições que faltavam. Lembre-se de que para a realização de um empréstimo o tipo do usuário (aluno, professor ou funcionário) tem um número máximo de livros para serem emprestados e que essa informação deverá ser armazenada em algum lugar para ser consultada (de preferência no usuário!).
