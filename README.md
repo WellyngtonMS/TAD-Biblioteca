@@ -37,9 +37,9 @@ o prazo para empréstimo (i.e. duas semanas) e a data de entrega dos livros. A d
 #### 3. Exercícios de Implementação
 1. Releia os conceitos e definições das operações básicas Pesquisar, Alterar e Excluir da seção 2.1 e implemente as funções a seguir para cada TAD dos módulos de acordo com seus respectivos cabeçalhos:
       ````
-      int PesquisarLivro(TModulo1 modulo, TLivro livro)
-      void AlterarLivro(TModulo1 *modulo, TLivro livro)    
-      void ExcluirLivro(TModulo1 *modulo, TLivro livro)
+      int PesquisarLivro(TModulo1 modulo, TLivro livro);
+      void AlterarLivro(TModulo1 *modulo, TLivro livro);  
+      void ExcluirLivro(TModulo1 *modulo, TLivro livro);
       ````
       **Observação:** Lembre-se que o nome de cada função deverá estar de acordo com cada tipo de módulo. No cabeçalho das funções definidas anteriormente para cada letra da questão, o nome das funções estão de acordo com o Módulo 1 que é responsável pelo objeto Livro.
 
@@ -50,7 +50,7 @@ o prazo para empréstimo (i.e. duas semanas) e a data de entrega dos livros. A d
       - O Módulo de Empréstimo também deverá ser passado como parâmetro.
       - Para realização de um empréstimo, você deverá realizar uma chamada à função Pesquisar referente ao objeto livro e usuário para identificar se eles realmente existem dentro de seus respectivos módulos. Uma vez com os retornos dos índices de livro e usuário, a função InserirEmprestimo poderá realizar um empréstimo lendo a data de realização do empréstimo como entrada e verificar a restrição da quantidade de livros disponíveis. Além disso, a quantidade de livros emprestados também deve ser atualizada no objeto livro cadastrado no Módulo 1. Para o cálculo da data de entrega, crie uma função que realiza o cálculo da data de entrega a partir da data do empréstimo, essa função deverá apresentar o seguinte cabeçalho:
       ```
-        TData CalcularDataEntrega(TData data_emprestimo)
+        TData CalcularDataEntrega(TData data_emprestimo);
       ```
       - A data de devolução, a multa e a confirmação de pagamento da multa não deverão ser registrados no ato de cadastro do empréstimo.
       - Uma vez que a existência do livro para a realização do empréstimo foi confirmada, o que falta agora é registrá-lo. Porém, uma pessoa pode levar até no máximo 3 ou 5 livros, dependendo do tipo de usuário. No entanto, a função recebe apenas um um ISBN de livro dentro do parâmetro empréstimo e, de acordo com a estrutura TEmprestimo, o campo que armazena mais de um livro é um vetor de livros, o que resulta em um problema. Diante disso, seria melhor (i) refazer a estrutura TEmprestimo ou (ii) modificar a função InserirEmprestimo para que possa receber mais de um livro como parâmetro para realizar um empréstimo? Para resolver esse problema, deve-se pensar como funciona um empréstimo na prática, pois, quando se realiza um empréstimo de um livro na biblioteca, o usuário também pode decidir entregar todos os livros ou apenas um de cada vez. Nesse sentido, o melhor seria inserir um empréstimo por livro, assim, a estrutura TEmprestimo deve ser modificada de modo que não exista mais um vetor de ISBNs mas sim apenas um campo para registrar um livro por empréstimo.
@@ -65,7 +65,7 @@ o prazo para empréstimo (i.e. duas semanas) e a data de entrega dos livros. A d
       
 7. Desenvolva uma função auxiliar que registra o pagamento de uma multa. Para isso, a função deverá utilizar obrigatoriamentes o seguinte cabeçalho: 
       ```
-        void EfetuarPagamento(TModulo3 *modulo, TEmprestimo borrow)
+        void EfetuarPagamento(TModulo3 *modulo, TEmprestimo borrow);
       ```
       Considere que o parâmetro borrow já apresenta os campos CPF, ISBN e data_de_emprestimo previamente preenchidos antes da chamada da função EfetuarPagamento. Não se esqueça de que uma opção para efetuar o pagamento referente a uma multa deverá ser adicionada no Submenu do Módulo 3.
       
